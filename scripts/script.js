@@ -1,7 +1,41 @@
+//array de pecas para sorteio e verificação de lógica
 var pecas = [];
+//array de elementos HTML (peça)
 var pecasHTML =[];
+//variavel para guardar o primeiro chute
 var z = null;
+//variavel para guardar o segundo chute
 var y = null;
+//funçao para criação das peças - realizar 
+
+let nivel = document.getElementById("nivel");
+nivel.addEventListener('change', teste);
+function teste(){
+  if(nivel.value == "medio"){
+    criarTabuleiro(4,5);
+  }else if(nivel.value == "facil"){
+    criarTabuleiro(2,5);
+  }else if(nivel.value == "dificil"){
+    criarTabuleiro(6,5);
+  }
+}
+function criarTabuleiro(linhas, pecas){
+  let tabela = document.getElementById("tabela");
+  let contador = 0;
+  for(let i = 0;i<linhas;i++){
+    let linha = document.createElement("tr");
+    for(let z = 0;z<pecas;z++){
+      let peca = document.createElement("td");
+      peca.innerHTML = "X";
+      peca.setAttribute("class", "peca");
+      peca.setAttribute("id", contador);
+      peca.setAttribute("onclick", "mostrarPeca(this)");
+      contador+=1;
+      linha.appendChild(peca);
+    }
+    tabela.appendChild(linha);
+  }
+}
 function criarPecas(n = 20){
   let x = 1;
   for(var i=0;i<n-1;i+=2){
@@ -14,7 +48,7 @@ function criarPecas(n = 20){
   }
   shuffle(pecas);
 }
-criarPecas(10);
+criarPecas();
 function mostrarPeca(x){
   if(!z && !y){
     x.innerHTML = pecas[x.id];

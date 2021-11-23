@@ -1,11 +1,13 @@
-h1{
+.titulo{
   text-align: center;
   border: 2px solid black;
   padding: 10px;
-  
+  display: flex;
+  justify-content: space-around;
 }
 td{
   padding: 30px;
   border: 2px solid;
   font-size: 20px;
+  cursor: pointer;
 }
