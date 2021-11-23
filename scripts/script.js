@@ -21,20 +21,26 @@ function teste(){
 }
 function criarTabuleiro(linhas, pecas){
   let tabela = document.getElementById("tabela");
-  let contador = 0;
-  for(let i = 0;i<linhas;i++){
-    let linha = document.createElement("tr");
-    for(let z = 0;z<pecas;z++){
-      let peca = document.createElement("td");
-      peca.innerHTML = "X";
-      peca.setAttribute("class", "peca");
-      peca.setAttribute("id", contador);
-      peca.setAttribute("onclick", "mostrarPeca(this)");
-      contador+=1;
-      linha.appendChild(peca);
+  if(tabela.childElementCount<=0){
+      let contador = 0;
+      for(let i = 0;i<linhas;i++){
+      let linha = document.createElement("tr");
+      for(let z = 0;z<pecas;z++){
+        let peca = document.createElement("td");
+        peca.innerHTML = "X";
+        peca.setAttribute("class", "peca");
+        peca.setAttribute("id", contador);
+        peca.setAttribute("onclick", "mostrarPeca(this)");
+        contador+=1;
+        linha.appendChild(peca);
+      }
+      tabela.appendChild(linha);
     }
-    tabela.appendChild(linha);
+  }else{
+    tabela.innerText = "";
+    criarTabuleiro(linhas, pecas);
   }
+  criarPecas(linhas*pecas);
 }
 function criarPecas(n = 20){
   let x = 1;
@@ -48,7 +54,9 @@ function criarPecas(n = 20){
   }
   shuffle(pecas);
 }
-criarPecas();
+
+//criarPecas();
+
 function mostrarPeca(x){
   if(!z && !y){
     x.innerHTML = pecas[x.id];
