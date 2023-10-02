@@ -1,3 +1,43 @@
+function obterUrlImagemPokemon(nomePokemon) {
+  // Fazendo uma chamada à API para obter os dados do Pokémon
+  fetch(`https://pokeapi.co/api/v2/pokemon/${nomePokemon.toLowerCase()}`)
+      .then(response => response.json())
+      .then(dadosPokemon => {
+          // Obtendo o ID do Pokémon para fazer outra chamada à API para obter os detalhes da espécie
+          const idPokemon = dadosPokemon.id;
+          console.log(dadosPokemon.sprites.front_default)
+          let x = poke01
+          x.setAttribute('src', dadosPokemon.sprites.front_default)
+          // return dadosPokemon.sprites.front_default
+      })
+      .catch(error => console.error('Erro ao obter dados do Pokémon:', error));
+}
+
+function obterListaAleatoriaPokemon(numeroPokemon) {
+  // Gerar um número aleatório para o offset
+  const offset = Math.floor(Math.random() * 800); // Existem aproximadamente 800 Pokémon na PokeAPI
+
+  // Fazendo uma chamada à API para obter a lista aleatória de Pokémon
+  fetch(`https://pokeapi.co/api/v2/pokemon?limit=${numeroPokemon}&offset=${offset}`)
+      .then(response => response.json())
+      .then(dados => {
+          const listaPokemon = dados.results;
+          console.log('Lista aleatória de Pokémon:');
+          listaPokemon.forEach(pokemon => {
+            obterUrlImagemPokemon(pokemon.name)
+              console.log(pokemon.name);
+          });
+      })
+      .catch(error => console.error('Erro ao obter lista de Pokémon:', error));
+}
+
+// Exemplo de uso da função
+// const nomePokemon = prompt('Digite o nome do Pokémon:');
+obterListaAleatoriaPokemon(10);
+// obterUrlImagemPokemon(nomePokemon);
+
+
+
 //array de pecas para sorteio e verificação de lógica
 var pecas = [];
 //array de elementos HTML (peça)
