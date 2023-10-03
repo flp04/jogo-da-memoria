@@ -1,13 +1,18 @@
-function obterUrlImagemPokemon(nomePokemon) {
+var listaUrlImgPokemon = []
+
+function obterUrlImagemPokemon(nomePokemon, id) {
   // Fazendo uma chamada à API para obter os dados do Pokémon
   fetch(`https://pokeapi.co/api/v2/pokemon/${nomePokemon.toLowerCase()}`)
       .then(response => response.json())
       .then(dadosPokemon => {
           // Obtendo o ID do Pokémon para fazer outra chamada à API para obter os detalhes da espécie
           const idPokemon = dadosPokemon.id;
-          console.log(dadosPokemon.sprites.front_default)
-          let x = poke01
-          x.setAttribute('src', dadosPokemon.sprites.front_default)
+          // console.log(dadosPokemon.sprites.front_default)
+          listaUrlImgPokemon.push(dadosPokemon.sprites.front_default)
+          // let y = `poke${id}`
+          // console.log(x)
+          // let x = document.getElementById('poke1')
+          // x.setAttribute('src', dadosPokemon.sprites.front_default)
           // return dadosPokemon.sprites.front_default
       })
       .catch(error => console.error('Erro ao obter dados do Pokémon:', error));
@@ -22,10 +27,13 @@ function obterListaAleatoriaPokemon(numeroPokemon) {
       .then(response => response.json())
       .then(dados => {
           const listaPokemon = dados.results;
+          
           console.log('Lista aleatória de Pokémon:');
+          numeroPokemon++
           listaPokemon.forEach(pokemon => {
-            obterUrlImagemPokemon(pokemon.name)
-              console.log(pokemon.name);
+          //   numeroPokemon--
+          // console.warn(numeroPokemon)
+            obterUrlImagemPokemon(pokemon.name, numeroPokemon)
           });
       })
       .catch(error => console.error('Erro ao obter lista de Pokémon:', error));
@@ -33,8 +41,9 @@ function obterListaAleatoriaPokemon(numeroPokemon) {
 
 // Exemplo de uso da função
 // const nomePokemon = prompt('Digite o nome do Pokémon:');
-obterListaAleatoriaPokemon(10);
+obterListaAleatoriaPokemon(30);
 // obterUrlImagemPokemon(nomePokemon);
+console.warn(listaUrlImgPokemon)
 
 
 
@@ -82,7 +91,7 @@ function criarTabuleiro(linhas, pecas){
   }
   criarPecas(linhas*pecas);
 }
-function criarPecas(n = 20){
+function criarPecas(n){
   let x = 1;
   for(var i=0;i<n-1;i+=2){
     pecas[i] = x;
@@ -91,6 +100,10 @@ function criarPecas(n = 20){
   }
   for(var i=0;i<n-1;i++){
     pecasHTML[i] = document.getElementById(i);
+    let pecaImgPokemon = document.createElement('img')
+    pecaImgPokemon.setAttribute('src', listaUrlImgPokemon[i])
+    console.log(pecaImgPokemon)
+    pecasHTML[i].appendChild(pecaImgPokemon)
   }
   shuffle(pecas);
 }
