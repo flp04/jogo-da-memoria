@@ -94,15 +94,15 @@ function criarTabuleiro(linhas, pecas){
 function criarPecas(n){
   let x = 1;
   for(var i=0;i<n-1;i+=2){
-    pecas[i] = x;
-    pecas[i+1] = x;
+    pecas[i] = listaUrlImgPokemon[x];
+    pecas[i+1] = listaUrlImgPokemon[x];
     x+=1;
   }
   for(var i=0;i<n-1;i++){
     pecasHTML[i] = document.getElementById(i);
     let pecaImgPokemon = document.createElement('img')
-    pecaImgPokemon.setAttribute('src', listaUrlImgPokemon[i])
-    console.log(pecaImgPokemon)
+    // pecaImgPokemon.setAttribute('src', listaUrlImgPokemon[i])
+    // console.log(pecaImgPokemon)
     pecasHTML[i].appendChild(pecaImgPokemon)
   }
   shuffle(pecas);
@@ -112,10 +112,19 @@ function criarPecas(n){
 
 function mostrarPeca(x){
   if(!z && !y){
-    x.innerHTML = pecas[x.id];
+    // x.innerHTML = pecas[x.id];
+    x.innerHTML = ''
+    let pecaImgPokemon = document.createElement('img')
+    pecaImgPokemon.setAttribute('src', pecas[x.id])
+    x.appendChild(pecaImgPokemon)
+    // console.log(x)
     z = x;
   }else if(z){
-    x.innerHTML = pecas[x.id];
+    // x.innerHTML = pecas[x.id];
+    x.innerHTML = ''
+    let pecaImgPokemon = document.createElement('img')
+    pecaImgPokemon.setAttribute('src', pecas[x.id])
+    x.appendChild(pecaImgPokemon)
     y = x;
     if(pecas[z.id] == pecas[y.id] && z != y){
       let peca1 = document.getElementById(z.id);
